@@ -29,7 +29,7 @@ public class HomeControllerTest {
 	private MadridService service;
 
 	@Test
-	public void given_MadridService_when_call_getCities_then_Ok() throws Exception {
+	public void given_HomeController_when_call_getCities_then_Ok() throws Exception {
 
 		//Given
 		List<String> expectedList = List.of(
@@ -47,7 +47,7 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	public void given_MadridService_when_call_getPostalCodes_then_Ok() throws Exception {
+	public void given_HomeController_when_call_getPostalCodes_then_Ok() throws Exception {
 
 		//Given
 		List<String> expectedList = List.of(
