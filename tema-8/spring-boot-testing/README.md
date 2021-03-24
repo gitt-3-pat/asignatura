@@ -4,7 +4,7 @@
 
 ```
 http://localhost:8080/swagger-ui.html
-mvn clean test  site
+mvn clean test site
 ```
 
 ## References
