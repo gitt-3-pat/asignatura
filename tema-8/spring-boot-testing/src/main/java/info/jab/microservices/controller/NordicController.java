@@ -24,7 +24,7 @@ public class NordicController {
 
     @GetMapping("/gods")
     public @ResponseBody
-    ResponseEntity<List<String>> getPostalCodes() {
+    ResponseEntity<List<String>> getGods() {
         ResponseEntity<List<String>> result = restTemplate.exchange(
                 endpoint,
                 HttpMethod.GET,

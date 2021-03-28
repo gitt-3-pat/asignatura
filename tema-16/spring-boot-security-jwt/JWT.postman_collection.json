@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "36eeba6a-f168-4f7c-a320-0c9ae69ef467",
+		"name": "JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"demo\",\n    \"password\" : \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/postalcodes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": " Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vIiwiZXhwIjoxNjE2ODc0MDY2LCJpYXQiOjE2MTY4NTYwNjZ9.prISD8WHuiv4_SyZ6yWEx1zDvwzCLRh9R5mhhQO55eAprWCQA0yJeCxMqpdH11j1Gcd4Rwl8sPXGK0u4P2ojZA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/postalcodes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"postalcodes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
