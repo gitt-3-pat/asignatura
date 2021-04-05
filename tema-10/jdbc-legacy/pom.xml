@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring-data-jdbc</artifactId>
+	<artifactId>jdbc-legacy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-data-jdbc</name>
 	<description>spring-data-jdbc project for Spring Boot</description>
