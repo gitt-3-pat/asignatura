@@ -1,14 +1,12 @@
 package info.jab.microservices.model;
 
-import lombok.Builder;
-import lombok.Data;
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.util.Assert;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder
