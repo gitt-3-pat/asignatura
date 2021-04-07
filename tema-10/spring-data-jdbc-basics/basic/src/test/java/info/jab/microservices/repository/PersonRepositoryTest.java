@@ -1,5 +1,6 @@
 package info.jab.microservices.repository;
 
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import info.jab.microservices.model.Person;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @Transactional
 public class PersonRepositoryTest {
@@ -17,14 +20,39 @@ public class PersonRepositoryTest {
 	private PersonRepository personRepository;
 
 	@Test
-	public void testTransactionalUpdate() {
+	public void given_repository_when_execute_modified_method_then_Ok() {
+
+		//Given
+		final Person saved = personRepository.save(getPerson());
+		then(saved).isNotNull();
+
+		//When
+		personRepository.updateUserNameById(saved.getFirst_name(), saved.getId());
+		Person person2 = personRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+		//Then
+		then(saved).isEqualTo(person2);
+	}
+
+	@Test
+	public void given_repository_when_execute_myquery_then_Ok() {
+
+		//Given
+		Person person = getPerson();
+		personRepository.save(person);
+
+		//When
+		List<Person> list = personRepository.myQuery();
+
+		//Then
+		then(List.of(person)).isEqualTo(list);
+	}
+
+	private Person getPerson() {
+
 		final Person person = new Person();
 		person.setFirst_name("Javier");
 		person.setLast_name("Gomez-Cornejo");
-		final Person saved = personRepository.save(person);
-
-		assertTrue(saved != null);
-		personRepository.updateUserNameById(saved.getFirst_name(), saved.getId());
-
+		return person;
 	}
 }

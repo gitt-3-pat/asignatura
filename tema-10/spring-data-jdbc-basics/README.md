@@ -9,20 +9,6 @@ Spring Data JDBC offers a repository abstraction based on JDBC.
 jdbc:h2:mem:testdb
 ```
 
-## Goals
-
-- [ ] Dependencies
-- [ ] JDBCTemplate
-- [ ] Aggregates, Entities & Value Objects
-- [ ] Repositories
-- [ ] Data Relationships: 1:1, 1:n, n:m
-- [ ] Queries
-- [ ] Transactions  
-- [ ] Loading Schema
-- [ ] Loading Data
-- [ ] Testing
-
-
 ## References
 
 - https://spring.io/projects/spring-data#learn

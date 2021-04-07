@@ -7,115 +7,143 @@ import java.util.stream.Collectors;
 
 import info.jab.microservices.model.User;
 import info.jab.microservices.model.UserType;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.BDDAssertions.then;
 
+@Slf4j
 @SpringBootTest
-@Sql(scripts="/basic_mapping.sql") //to created DB tables and init sample DB data
+@Sql(scripts= "/sql_data.sql") //to created DB tables and init sample DB data
 @Transactional
 public class JdbcTemplateTest {
 
 	@Autowired
 	private UserJdbcTemplateRepository userRepository;
-	
+
 	@Test
-	void createUserTest() {
-		
-		int created = userRepository.save(getUser());
-		
-		assertTrue(created == 1);
+	void given_repository_when_add_user_then_Ok() {
+
+		//Given
+
+		//When
+		User user = getUser();
+		int created = userRepository.save(user);
+
+		//Then
+		then(created).isEqualTo(1);
 	}
 	
 	@Test
-	void updateUserTest() {
-		
-		// Read all users
+	void given_repository_when_update_then_Ok() {
+
+		//Given
+		List<User> allUsers = userRepository.findAll();
+		String newPassword = "ABC123abc#";
+
+		//When
+		allUsers.forEach(user -> {
+			user.setPassword(newPassword);
+			int updated = userRepository.update(user);
+			
+			then(updated).isEqualTo(1);
+		});
+
+		//Then
+		List<User> allUsers2 = userRepository.findAll();
+		allUsers2.stream()
+				.map(User::getPassword)
+				.forEach(s -> {
+					then(s).isEqualTo(newPassword);
+				});
+	}
+
+	@Test
+	void given_repository_when_update_all_users_Ok() {
+
+		//Given
 		List<User> allUsers = (List<User>) userRepository.findAll();
-		
+
+		//When
+		//Then
 		allUsers.forEach(user -> {
 			user.setPassword("ABC123abc#");
 			int updated = userRepository.update(user);
-			
-			assertTrue(updated == 1);
+
+			then(updated).isEqualTo(1);
 		});
-		
-	}
-	
-	@Test
-	void sortByUserName() {
-
-		// By user name in descending order
-		Sort sort = Sort.by(Direction.fromString("DESC"), "USER_NAME");
-
-		System.err.println(sort.toList().get(0));
-
-		// All Users
-		List<User> users = (List<User>) userRepository.findAll();
-
-		// Sorted Users
-		List<User> sortedUsers = userRepository.findAll(sort);
-
-		List<User> userList = users.stream().sorted(Comparator.comparing(User::getUserName).reversed())
-				.collect(Collectors.toList());
 
 	}
 
 	@Test
-	void getByPageAndSize() {
+	void given_repository_when_delete_one_record_then_Ok() {
 
-		// total 12 users in sample data, set 5 users per page - total 3 pages
+		//Given
+		List<User> allUsers = userRepository.findAll();
+		User user = allUsers.get(0);
+
+		//When
+		userRepository.delete(user);
+
+		//Then
+		int count = userRepository.count();
+		then(allUsers.size()).isEqualTo(count + 1);
+	}
+
+	@Test
+	void given_repository_when_paginate_and_fetch_first_page_then_Ok() {
+
+		//Given
 		PageRequest pageable = PageRequest.of(0, 5);
 
-		// All users
-		List<User> users = (List<User>) userRepository.findAll();
-
-		// paged users - each page should have 5 users
+		//When
+		List<User> users = userRepository.findAll();
+		int count = users.size();
+		LOGGER.info("Count : {}", count);
 		Page<User> pagedUsers = userRepository.findAll(pageable);
 
-		assertTrue(pagedUsers.getTotalPages() == 3);
-		assertTrue(pagedUsers.getContent().equals(users.subList(0, 5)));
+		//Then
+		then(pagedUsers.getTotalPages()).isEqualTo(3);
+		then(pagedUsers.getContent()).isEqualTo(users.subList(0, 5));
 	}
 
 	@Test
-	void getByPageAndSizeSortByUserName() {
+	void given_repository_when_paginate_and_sort_and_fetch_first_page_then_Ok() {
 
-		PageRequest pageable = PageRequest.of(0, 5, Direction.fromString("DESC"), "USER_NAME");
-		System.err.println(pageable.getSort().toList().get(0));
-		// All Users
-		List<User> users = (List<User>) userRepository.findAll();
+		//Give
+		PageRequest pageable = PageRequest
+				.of(0, 5, Direction.fromString("DESC"), "USER_NAME");
+		LOGGER.info("{}", pageable.getSort().toList().get(0));
+
+		//When
+		List<User> users = userRepository.findAll();
+		int count = users.size();
+		LOGGER.info("Count : {}", count);
 
 		Page<User> pagedUsers = userRepository.findAll(pageable);
 
-		List<User> usersList = users.stream().sorted(Comparator.comparing(User::getUserName).reversed())
+		List<User> usersList = users.stream()
+				.sorted(Comparator.comparing(User::getUserName)
+				.reversed())
 				.collect(Collectors.toList()).subList(0, 5);
 
-		assertTrue(pagedUsers.getTotalPages() == 3);
-		assertTrue(pagedUsers.getContent().equals(usersList));
-	}
-	
-	@Test
-	void deleteUserTest() {
-		
-		// Read all users
-		List<User> allUsers = (List<User>) userRepository.findAll();
-		
-		allUsers.forEach(user -> {
-			userRepository.delete(user);
-			
-			assertTrue(userRepository.findById(user.getId()).isEmpty());
-		});
-	
+		//Then
+		then(pagedUsers.getTotalPages()).isEqualTo(3);
+		then(pagedUsers.getContent()).isEqualTo(usersList);
 	}
 
+	/**
+	 * Private method to create a new User
+	 *
+	 * @return a new User Object
+	 */
 	private User getUser() {
 		
 		User user = new User();
@@ -127,4 +155,5 @@ public class JdbcTemplateTest {
 		
 		return user;
 	}
+
 }
