@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
 public class PersonRepositoryTest {
 
 	@Autowired
 	private PersonRepository personRepository;
 
 	@Test
+	@Transactional
 	public void given_repository_when_execute_modified_method_then_Ok() {
 
 		//Given
@@ -35,6 +35,7 @@ public class PersonRepositoryTest {
 	}
 
 	@Test
+	@Transactional
 	public void given_repository_when_execute_myquery_then_Ok() {
 
 		//Given
