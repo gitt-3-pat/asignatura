@@ -2,25 +2,19 @@ package info.jab.microservices.repository;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import info.jab.microservices.model.Person;
 import info.jab.microservices.postgres.DockerPostgreDataSourceInitializer;
-import info.jab.microservices.postgres.PostgresTestContainer;
 
 @SpringBootTest
 @Sql(scripts = { "/db/migration/V1_schema.sql" }) // to created DB tables and init sample DB data
 @ContextConfiguration(initializers = DockerPostgreDataSourceInitializer.class)
 public class PersonRepositoryTest {
-
-	@ClassRule
-	public static PostgreSQLContainer<PostgresTestContainer> postgreSQLContainer = PostgresTestContainer.getInstance();
 
 	@Autowired
 	private PersonRepository personRepository;
