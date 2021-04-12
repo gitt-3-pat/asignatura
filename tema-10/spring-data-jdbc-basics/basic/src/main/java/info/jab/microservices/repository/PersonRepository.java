@@ -17,4 +17,15 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
 	@Query("SELECT * FROM PERSON")
 	List<Person> myQuery();
+
+	@Query("UPDATE PERSON SET " +
+			"PERSON.FIRST_NAME= :userName , " +
+			"PERSON.LAST_NAME= :lastName " +
+			"WHERE PERSON.ID= :id ")
+	@Modifying
+	int updatePersonById(
+			@Param("userName") String userName,
+			@Param("lastName") String lastName,
+			@Param("id") Long id);
+
 }
