@@ -18,7 +18,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @Slf4j
 @SpringBootTest
-
 public class TableDemoRepositoryTest {
 
 	@Autowired
@@ -29,7 +28,6 @@ public class TableDemoRepositoryTest {
 	public void given_repository_when_add_then_Ok() {
 
 		//Given
-
 		Date date = Date.valueOf(LocalDate.of(2019, 01, 10));
 		LocalTime now = LocalTime.now();
 		Timestamp ts = Timestamp.from(Instant.now());
@@ -40,7 +38,18 @@ public class TableDemoRepositoryTest {
 				.birthday(date)
 				.mytime(now)
 				.now(ts)
+				.flag(true)
 				.build();
+
+		/*
+		TableDemo employee2 = new TableDemo();
+		employee2.setBirthday(date);
+
+		 */
+
+		//
+		//TableDemo employee3 = new TableDemo(asdfa, asf,, asf)
+
 
 		//When
 		tableDemoRepository.save(employee);

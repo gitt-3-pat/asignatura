@@ -9,6 +9,8 @@
 
 ## Examples
 
+- https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html
+
 ```
 DROP TABLE IF EXISTS TABLEDEMO;
 
@@ -47,7 +49,8 @@ CREATE TABLE TABLEDEMO (
     FIELD2 VARCHAR(255) NOT NULL,
     BIRTHDAY DATE NOT NULL,
     MYTIME TIME NOT NULL,
-    NOW TIMESTAMP NOT NULL
+    NOW TIMESTAMP NOT NULL,
+    FLAG BOOLEAN NOT NULL
 );
 
 ```

@@ -57,7 +57,7 @@ public class PersonController {
             person.setLast_name("Demo update");
             personRepository.updatePersonById(
                     person.getFirst_name(),
-                    person.getFirst_name(),
+                    person.getLast_name(),
                     person.getId());
 
             return ResponseEntity.ok().body(person);
