@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @Table("USER_CREDENTIALS")
 public class Credentials {
+
 	@Id
 	private Long credsId;
 	private String userName;

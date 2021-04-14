@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import info.jab.microservices.model.PurchaseOrder;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class OneToManyOrderRepositoryTest {
@@ -19,6 +20,7 @@ public class OneToManyOrderRepositoryTest {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	@Transactional
 	@Test
 	// ONE TO MANY TEST WITH AGGREGATE
 	public void whenPurchaseOrderIscreated_OrderItemsAreCreatedToo() {
@@ -38,6 +40,7 @@ public class OneToManyOrderRepositoryTest {
 
 	}
 
+	@Transactional
 	@Test
 	// ONE TO MANY TEST WITH AGGREGATE
 	public void whenPurchaseOrderIscreated_ThenIsRetrievedByAddress() {
