@@ -25,5 +25,5 @@ public class TableDemo {
 	private Date birthday;
 	private LocalTime mytime;
 	private Timestamp now;
-
+	private Boolean flag;
 }
