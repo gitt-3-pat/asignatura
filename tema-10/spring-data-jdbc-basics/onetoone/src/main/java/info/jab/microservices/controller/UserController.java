@@ -2,6 +2,7 @@ package info.jab.microservices.controller;
 
 import info.jab.microservices.model.Credentials;
 import info.jab.microservices.model.User;
+import info.jab.microservices.model.UserType;
 import info.jab.microservices.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,13 @@ public class UserController {
         user.setCreatedTime(new Date());
         user.setDateofBirth(new Date());
         user.setUpdatedTime(new Date());
-        user.setUserType(User.UserType.EMPLOYEE);
+        user.setUserType(UserType.EMPLOYEE);
         user.setCredentials(credentials);
 
         userRepository.save(user);
+
+        userRepository.getU().forEach(System.out::println);
+        userRepository.getUC().forEach(System.out::println);
 
         return ResponseEntity.ok().body(user);
     }

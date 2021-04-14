@@ -7,12 +7,11 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import lombok.Data;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
+@Table("USER")
 public class User {
-	public enum UserType {
-		EMPLOYEE, STUDENT;
-	}
 
 	@Id
 	private Long id;

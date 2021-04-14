@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
 import java.util.stream.StreamSupport;
 
+import info.jab.microservices.model.UserType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import info.jab.microservices.model.Credentials;
 import info.jab.microservices.model.User;
-import info.jab.microservices.model.User.UserType;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootTest
 public class OneToOneRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Test
 	@DisplayName("One-to-One Mapping Test")
