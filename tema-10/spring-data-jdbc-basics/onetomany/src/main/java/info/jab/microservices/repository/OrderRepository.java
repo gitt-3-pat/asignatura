@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import info.jab.microservices.model.PurchaseOrder;
 
-interface OrderRepository extends CrudRepository<PurchaseOrder, Long> {
+public interface OrderRepository extends CrudRepository<PurchaseOrder, Long> {
 
 	@Query("select count(*) from order_item")
 	int countItems();
