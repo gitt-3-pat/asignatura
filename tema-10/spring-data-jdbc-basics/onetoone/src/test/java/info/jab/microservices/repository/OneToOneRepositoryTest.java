@@ -30,9 +30,14 @@ public class OneToOneRepositoryTest {
 		user.setDateofBirth(new Date());
 		user.setUserType(UserType.EMPLOYEE);
 		user.setCredentials(credentials);
-		final User createdUser = userRepository.save(user);
+		User createdUser = userRepository.save(user);
 		assertTrue(createdUser != null);
+		assertTrue(createdUser.getCredentials() != null);
+		createdUser.getCredentials().setPassword("newPass");
+		createdUser = userRepository.save(user);
 		userRepository.delete(user);
+		assertTrue(createdUser.getCredentials() != null);
+		assertTrue(createdUser.getCredentials().getPassword().equals("newPass"));
 		assertTrue(userRepository.findByUserName(user.getCredentials().getUserName()) == 0);
 	}
 
