@@ -17,6 +17,7 @@ import info.jab.microservices.repository.OrderRepository;
 @RestController
 @RequestMapping("api")
 public class OrderController {
+
 	@Autowired
 	private OrderRepository repository;
 
@@ -38,5 +39,30 @@ public class OrderController {
 	@PutMapping("orders/{id}")
 	public ResponseEntity<PurchaseOrder> updateOrder(@RequestBody PurchaseOrder order, @PathVariable("id") String id) {
 		return new ResponseEntity<>(repository.save(order), HttpStatus.OK);
+	}
+
+	//
+
+	@GetMapping("/api2/orders")
+	public ResponseEntity<Iterable<PurchaseOrder>> getOrders() {
+		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/api2/orders/add")
+	public ResponseEntity<PurchaseOrder> addOrder() {
+
+		final PurchaseOrder order = new PurchaseOrder();
+
+		order.addItem(4, "Captain Future Comet Lego set");
+		order.addItem(2, "Cute blue angler fish plush toy");
+		order.setShippingAddress("N/A");
+
+		final PurchaseOrder saved = repository.save(order);
+
+		//LOG
+		repository.getPO().stream().forEach(System.out::println);
+		repository.getOI().stream().forEach(System.out::println);
+
+		return new ResponseEntity<>(saved, HttpStatus.OK);
 	}
 }

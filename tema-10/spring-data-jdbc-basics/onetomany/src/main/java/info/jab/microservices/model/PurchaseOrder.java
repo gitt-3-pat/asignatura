@@ -14,7 +14,8 @@ import lombok.Data;
 @Table("PURCHASE_ORDER")
 public class PurchaseOrder {
 
-	private @Id Long id;
+	private @Id
+	Long id;
 	@Column("SHIPPING_ADDRESS")
 	private String shippingAddress;
 	// Child Entity

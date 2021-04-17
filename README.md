@@ -17,14 +17,14 @@
 ### Segunda parte:
 
 - Tema 9: Introducción a la persistencia de datos
-- Tema 10: Acceso a base de datos relacionales (JDBC)
+- [Tema 10: Acceso a base de datos relacionales (JDBC)](tema-10/README.md)
 - Tema 11: Acceso a base de datos no relacionales (NOSQL)
 - Tema 12: Marketing Digital
 - Tema 13: Programación funcional en Java
 - Tema 14: Event Driven Architectures
 - Tema 15: Diseño de Aplicaciones empresariales con Java
 - Tema 16: React
-- Tema 17: Seguridad
+- [Tema 17: Seguridad](tema-17/README.md)
 
 ## ¿Como probar en local?
 

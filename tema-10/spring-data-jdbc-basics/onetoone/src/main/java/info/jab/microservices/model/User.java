@@ -12,9 +12,6 @@ import lombok.Data;
 @Data
 @Table("USERS")
 public class User {
-	public enum UserType {
-		EMPLOYEE, STUDENT;
-	}
 
 	@Id
 	private Long id;
