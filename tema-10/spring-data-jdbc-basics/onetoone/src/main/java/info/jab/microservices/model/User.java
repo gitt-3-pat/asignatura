@@ -5,10 +5,12 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Data;
 
 @Data
+@Table("USERS")
 public class User {
 	public enum UserType {
 		EMPLOYEE, STUDENT;
@@ -22,6 +24,6 @@ public class User {
 	private Date dateofBirth;
 	private UserType userType;
 
-	@MappedCollection(idColumn = "CREDS_ID")
+	@MappedCollection(idColumn = "CREDS_ID", keyColumn = "CREDS_ID")
 	private Credentials credentials;
 }
