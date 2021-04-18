@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
 import java.util.stream.StreamSupport;
 
-import info.jab.microservices.model.UserType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import info.jab.microservices.model.Credentials;
 import info.jab.microservices.model.User;
-import org.springframework.jdbc.core.JdbcTemplate;
+import info.jab.microservices.model.UserType;
 
 @SpringBootTest
 public class OneToOneRepositoryTest {
@@ -37,11 +37,15 @@ public class OneToOneRepositoryTest {
 		user.setDateofBirth(new Date());
 		user.setUserType(UserType.EMPLOYEE);
 		user.setCredentials(credentials);
-
-		final User createdUser = userRepository.save(user);
+		User createdUser = userRepository.save(user);
 		assertTrue(createdUser != null);
+		assertTrue(createdUser.getCredentials() != null);
+		createdUser.getCredentials().setPassword("newPass");
+		createdUser = userRepository.save(user);
 
 		userRepository.delete(user);
+		assertTrue(createdUser.getCredentials() != null);
+		assertTrue(createdUser.getCredentials().getPassword().equals("newPass"));
 		assertTrue(userRepository.findByUserName(user.getCredentials().getUserName()) == 0);
 	}
 
@@ -65,8 +69,7 @@ public class OneToOneRepositoryTest {
 		createdUser.setCredentials(null);
 		userRepository.save(createdUser);
 
-		StreamSupport.stream(userRepository.findAll().spliterator(), false)
-				.forEach(x -> x.toString());
+		StreamSupport.stream(userRepository.findAll().spliterator(), false).forEach(x -> x.toString());
 	}
 
 }
