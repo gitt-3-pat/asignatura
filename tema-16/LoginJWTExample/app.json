@@ -1,0 +1,12 @@
+{
+  "name": "LoginJWTExample",
+  "displayName": "LoginJWTExample",
+  "expo": {
+    "name": "LoginJWTExample",
+    "slug": "LoginJWTExample",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
