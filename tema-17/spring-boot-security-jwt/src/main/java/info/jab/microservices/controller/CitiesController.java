@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping(
         path = "/api",
         produces = MediaType.APPLICATION_JSON_VALUE)
